@@ -1,0 +1,28 @@
+---
+driver:
+  name: dokken
+  chef_version: latest
+  privileged: true
+
+transport:
+  name: dokken
+
+provisioner:
+  name: dokken
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+    driver:
+      image: centos:7
+      intermediate_instructions:
+        - RUN yum clean all
+        - RUN yum -y install net-tools lsof
+      pid_one_command: /usr/lib/systemd/systemd
+
+suites:
+  - name: default
+    run_list:
+      - recipe[custom_solr::default]
