@@ -6,3 +6,4 @@
 
 include_recipe 'java::default'
 include_recipe 'monit-ng::default'
+include_recipe 'custom_solr::solr'
