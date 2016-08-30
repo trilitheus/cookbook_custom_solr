@@ -7,14 +7,15 @@
 require 'spec_helper'
 
 describe 'custom_solr::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
+  context 'When all attributes are default, on RHEL7' do
+    cached(:chef_run) do
+      ChefSpec::ServerRunner.new do |node, server|
+        node.automatic['memory']['total'] = 4096
+      end.converge(described_recipe)
     end
 
-    it 'converges successfully' do
-      expect { chef_run }.to_not raise_error
+    it 'includes the java default recipe' do
+      expect(chef_run).to include_recipe('java::default')
     end
   end
 end
