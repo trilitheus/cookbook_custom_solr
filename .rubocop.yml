@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - '.kitchen/**/*'
+    - 'vendor/**/*'
+Metrics/LineLength:
+  Enabled: false
