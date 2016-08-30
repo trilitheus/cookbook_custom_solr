@@ -17,5 +17,9 @@ describe 'custom_solr::default' do
     it 'includes the java default recipe' do
       expect(chef_run).to include_recipe('java::default')
     end
+
+    it 'includes the monit-ng default recipe' do
+      expect(chef_run).to include_recipe('monit-ng::default')
+    end
   end
 end
