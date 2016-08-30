@@ -9,7 +9,7 @@ require 'spec_helper'
 describe 'custom_solr::default' do
   context 'When all attributes are default, on RHEL7' do
     cached(:chef_run) do
-      ChefSpec::ServerRunner.new do |node, server|
+      ChefSpec::ServerRunner.new do |node|
         node.automatic['memory']['total'] = 4096
       end.converge(described_recipe)
     end
