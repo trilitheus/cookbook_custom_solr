@@ -54,7 +54,7 @@ bash "chown -R solr:solr /opt/#{file}" do
   code <<-EOH
     chown -R solr:solr /opt/#{file}
   EOH
-  not_if { ::File.stat('/opt/solr/bin/solr').uid == 6001 }
+  not_if { ::File.exist?('opt/solr/bin/solr') && ::File.stat('/opt/solr/bin/solr').uid == 6001 }
 end
 
 monit_check 'solr' do
