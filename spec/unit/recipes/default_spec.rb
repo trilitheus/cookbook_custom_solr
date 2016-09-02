@@ -14,15 +14,15 @@ describe 'custom_solr::default' do
       end.converge(described_recipe)
     end
 
-    it 'includes the java default recipe' do
+    it 'includes the java cookbook' do
       expect(chef_run).to include_recipe('java::default')
     end
 
-    it 'includes the monit-ng default recipe' do
+    it 'includes the monit-ng cookbook' do
       expect(chef_run).to include_recipe('monit-ng::default')
     end
 
-    it 'includes the solr recipe' do
+    it 'includes the custom_solr:solr recipe' do
       expect(chef_run).to include_recipe('custom_solr::solr')
     end
   end
