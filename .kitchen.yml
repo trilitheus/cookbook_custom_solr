@@ -13,6 +13,9 @@ verifier:
 
 platforms:
   - name: centos-7.2
+    driver:
+      box: packer_centos7_virtualbox
+      box_url: ~/packer_vbox_builds/packer_centos7_virtualbox.box
 
 suites:
   - name: default
