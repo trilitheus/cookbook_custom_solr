@@ -11,6 +11,8 @@ describe 'custom_solr::solr' do
     cached(:chef_run) do
       ChefSpec::ServerRunner.new(file_cache_path: '/tmp') do |node|
         node.automatic['memory']['total'] = 4096
+        node.automatic['os'] = 'linux'
+        node.automatic['platform_family'] = 'rhel'
       end.converge(described_recipe)
     end
 
