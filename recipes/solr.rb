@@ -67,6 +67,7 @@ end
 
 bash 'restart_solr' do
   code <<-EOH
+    sleep 5
     monit restart solr
   EOH
   action :nothing
