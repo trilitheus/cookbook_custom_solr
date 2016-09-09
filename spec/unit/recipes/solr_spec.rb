@@ -15,6 +15,8 @@ describe 'custom_solr::solr' do
         node.automatic['platform_family'] = 'rhel'
       end.converge(described_recipe)
     end
+    let(:solr_conf_template) { chef_run.template('/opt/solr/server/solr/collection1/conf/solrconfig.xml') }
+    let(:solr_schema_template) { chef_run.template('/opt/solr/server/solr/collection1/conf/schema.xml') }
 
     solr_version = '5.5.2'
 
@@ -55,12 +57,21 @@ describe 'custom_solr::solr' do
       expect(chef_run).to render_file('/opt/solr/server/solr/collection1/conf/solrconfig.xml')
     end
 
+    it 'notifies solr restart' do
+      expect(solr_conf_template).to notify('bash[restart_solr]').to(:run).delayed
+      expect(solr_schema_template).to notify('bash[restart_solr]').to(:run).delayed
+    end
+
     it 'changes ownership of the solr directory' do
       expect(chef_run).to run_bash("chown -R solr:solr /opt/solr-#{solr_version}")
     end
 
     it 'adds monit service for solr' do
       expect(chef_run).to create_monit_check('solr')
+    end
+
+    it 'restarts solr via bash action: nothing' do
+      expect(chef_run).to_not run_bash('restart_solr')
     end
   end
 end
